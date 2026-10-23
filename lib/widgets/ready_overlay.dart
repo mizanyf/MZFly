@@ -1,0 +1,136 @@
+import 'package:flutter/material.dart';
+
+import '../game/mz_fly_game.dart';
+
+/// The Ready overlay displayed before the first flap, prompting the user to tap.
+class ReadyOverlay extends StatefulWidget {
+  final MzFlyGame game;
+
+  const ReadyOverlay({super.key, required this.game});
+
+  @override
+  State<ReadyOverlay> createState() => _ReadyOverlayState();
+}
+
+class _ReadyOverlayState extends State<ReadyOverlay>
+    with SingleTickerProviderStateMixin {
+  late AnimationController _pulseController;
+  late Animation<double> _scaleAnimation;
+
+  @override
+  void initState() {
+    super.initState();
+    _pulseController = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 900),
+    )..repeat(reverse: true);
+
+    _scaleAnimation = Tween<double>(begin: 0.94, end: 1.08).animate(
+      CurvedAnimation(parent: _pulseController, curve: Curves.easeInOut),
+    );
+  }
+
+  @override
+  void dispose() {
+    _pulseController.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      behavior: HitTestBehavior.opaque,
+      onTap: () {
+        widget.game.startGame();
+      },
+      child: SafeArea(
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const SizedBox(height: 120),
+              // Pulsing finger tap animation
+              ScaleTransition(
+                scale: _scaleAnimation,
+                child: Container(
+                  padding: const EdgeInsets.all(20),
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: Colors.white.withAlpha(220),
+                    border: Border.all(
+                      color: const Color(0xFF0F172A),
+                      width: 3.0,
+                    ),
+                    boxShadow: const [
+                      BoxShadow(
+                        color: Colors.black26,
+                        offset: Offset(0, 5),
+                        blurRadius: 8,
+                      ),
+                    ],
+                  ),
+                  child: const Icon(
+                    Icons.touch_app_rounded,
+                    size: 56,
+                    color: Color(0xFF0288D1),
+                  ),
+                ),
+              ),
+              const SizedBox(height: 24),
+              // Instruction banner
+              Container(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 24,
+                  vertical: 10,
+                ),
+                decoration: BoxDecoration(
+                  color: const Color(0xFFFFCA28),
+                  borderRadius: BorderRadius.circular(20),
+                  border: Border.all(
+                    color: const Color(0xFF0F172A),
+                    width: 3.0,
+                  ),
+                  boxShadow: const [
+                    BoxShadow(
+                      color: Color(0xFF0F172A),
+                      offset: Offset(0, 4),
+                      blurRadius: 0,
+                    ),
+                  ],
+                ),
+                child: const Text(
+                  'TAP TO FLY!',
+                  style: TextStyle(
+                    fontSize: 22,
+                    fontWeight: FontWeight.w900,
+                    letterSpacing: 1.5,
+                    color: Color(0xFF0F172A),
+                  ),
+                ),
+              ),
+              const SizedBox(height: 10),
+              Container(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 16,
+                  vertical: 4,
+                ),
+                decoration: BoxDecoration(
+                  color: Colors.black.withAlpha(140),
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                child: const Text(
+                  'Tap anywhere to flap upward',
+                  style: TextStyle(
+                    fontSize: 13,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
