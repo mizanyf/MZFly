@@ -43,7 +43,7 @@ class MzFlyApp extends StatelessWidget {
       theme: ThemeData(
         useMaterial3: true,
         colorScheme: ColorScheme.fromSeed(
-          seedColor: const Color(0xFF29B6F6),
+          seedColor: const Color(0xFF0284C7),
           brightness: Brightness.light,
         ),
         fontFamily: 'Poppins',

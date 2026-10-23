@@ -54,12 +54,12 @@ class GroundComponent extends PositionComponent
     final w = size.x;
     final h = size.y;
 
-    // Palette
-    const earthColor = Color(0xFFC49A6C);
-    const earthStripeColor = Color(0xFFA87F53);
-    const grassColor = Color(0xFF66BB6A);
-    const grassHighlight = Color(0xFFA5D6A7);
-    const grassBorder = Color(0xFF2E7D32);
+    // Palette (Dark navy earth to electric cyan surface)
+    const earthColor = Color(0xFF0C1E3C);
+    const earthStripeColor = Color(0xFF132B54);
+    const grassColor = Color(0xFF38BDF8);
+    const grassHighlight = Color(0xFFBAE6FD);
+    const grassBorder = Color(0xFF0284C7);
 
     final fillPaint = Paint()..style = PaintingStyle.fill;
 
@@ -80,11 +80,11 @@ class GroundComponent extends PositionComponent
       canvas.drawPath(path, fillPaint);
     }
 
-    // 3. Top Grass Layer
+    // 3. Top Grass / Crystal Surface Layer
     fillPaint.color = grassColor;
     canvas.drawRect(Rect.fromLTWH(0, 0, w, 16), fillPaint);
 
-    // Grass Top Highlight
+    // Top Highlight
     canvas.drawLine(
       const Offset(0, 1),
       Offset(w, 1),
@@ -93,7 +93,7 @@ class GroundComponent extends PositionComponent
         ..strokeWidth = 2.5,
     );
 
-    // Grass Bottom Border
+    // Bottom Border
     canvas.drawLine(
       const Offset(0, 16),
       Offset(w, 16),
@@ -102,7 +102,7 @@ class GroundComponent extends PositionComponent
         ..strokeWidth = 2.5,
     );
 
-    // 4. Little decorative grass blades / tufts along the edge
+    // 4. Little decorative tufts along the edge
     fillPaint.color = grassColor;
     final tuftBorderPaint = Paint()
       ..color = grassBorder

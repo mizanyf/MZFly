@@ -36,10 +36,10 @@ class GameHud extends StatelessWidget {
                             vertical: 4,
                           ),
                           decoration: BoxDecoration(
-                            color: Colors.black.withAlpha(95),
+                            color: const Color(0xD9071530),
                             borderRadius: BorderRadius.circular(24),
                             border: Border.all(
-                              color: Colors.white.withAlpha(220),
+                              color: const Color(0xFF38BDF8),
                               width: 2.5,
                             ),
                           ),
@@ -54,7 +54,7 @@ class GameHud extends StatelessWidget {
                               shadows: [
                                 Shadow(
                                   offset: Offset(2, 3),
-                                  color: Color(0xFF0F172A),
+                                  color: Color(0xFF071530),
                                   blurRadius: 4,
                                 ),
                               ],
@@ -68,7 +68,7 @@ class GameHud extends StatelessWidget {
               ),
             ),
 
-            // Top-right Pause Button
+            // Top-right Pause Button (Bright light cyan with dark navy pause icon)
             Align(
               alignment: Alignment.topRight,
               child: GestureDetector(
@@ -80,15 +80,15 @@ class GameHud extends StatelessWidget {
                   width: 48,
                   height: 48,
                   decoration: BoxDecoration(
-                    color: const Color(0xFFFFCA28),
+                    color: const Color(0xFF38BDF8),
                     shape: BoxShape.circle,
                     border: Border.all(
-                      color: const Color(0xFF0F172A),
+                      color: const Color(0xFF071530),
                       width: 2.8,
                     ),
                     boxShadow: const [
                       BoxShadow(
-                        color: Color(0xFF0F172A),
+                        color: Color(0xFF0284C7),
                         offset: Offset(0, 3),
                         blurRadius: 0,
                       ),
@@ -97,7 +97,7 @@ class GameHud extends StatelessWidget {
                   child: const Icon(
                     Icons.pause_rounded,
                     size: 28,
-                    color: Color(0xFF0F172A),
+                    color: Color(0xFF071530),
                   ),
                 ),
               ),

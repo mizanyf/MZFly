@@ -31,11 +31,11 @@ class BackgroundComponent extends PositionComponent
 
     // Parallax scrolling speeds
     _cloudOffset1 =
-        (_cloudOffset1 + 12.0 * dt * scrollMultiplier) % (game.size.x + 180);
+        (_cloudOffset1 + 12.0 * dt * scrollMultiplier) % (game.size.x + 240);
     _cloudOffset2 =
-        (_cloudOffset2 + 18.0 * dt * scrollMultiplier) % (game.size.x + 220);
+        (_cloudOffset2 + 18.0 * dt * scrollMultiplier) % (game.size.x + 280);
     _cloudOffset3 =
-        (_cloudOffset3 + 24.0 * dt * scrollMultiplier) % (game.size.x + 160);
+        (_cloudOffset3 + 24.0 * dt * scrollMultiplier) % (game.size.x + 220);
 
     _distantHillsOffset =
         (_distantHillsOffset + 20.0 * dt * scrollMultiplier) % 320.0;
@@ -50,55 +50,92 @@ class BackgroundComponent extends PositionComponent
     final h = game.size.y;
     final groundY = h - 100.0;
 
-    // 1. Sky Gradient
+    // 1. Sky Gradient (from dark blue to light blue matching logo)
     final skyRect = Rect.fromLTWH(0, 0, w, h);
     final skyPaint = Paint()
       ..shader = const LinearGradient(
         begin: Alignment.topCenter,
         end: Alignment.bottomCenter,
         colors: [
-          Color(0xFF29B6F6), // Cerulean sky
-          Color(0xFF81D4FA),
-          Color(0xFFE1F5FE), // Soft warm horizon
+          Color(0xFF0A1E3F), // Deep atmospheric navy (dark blue)
+          Color(0xFF0284C7), // Vivid ocean royal blue
+          Color(0xFF38BDF8), // Bright sky cyan
+          Color(0xFFE0F2FE), // Soft light horizon blue (biru muda)
         ],
-        stops: [0.0, 0.55, 1.0],
+        stops: [0.0, 0.42, 0.78, 1.0],
       ).createShader(skyRect);
     canvas.drawRect(skyRect, skyPaint);
 
-    // 2. Cartoon Sun (top right)
-    final sunCenter = Offset(w - 60, 80);
-    final pulse = sin(_sunPulseTime) * 3.0;
+    // 2. Shining Light Blue Cartoon Sun (top right)
+    final sunCenter = Offset(w - 65, 80);
+    final pulse = sin(_sunPulseTime) * 3.5;
 
-    // Soft outer sun glow
+    // Glowing outer auras (Soft pulsing light cyan & sky blue)
     canvas.drawCircle(
       sunCenter,
-      44.0 + pulse,
-      Paint()..color = const Color(0x33FFF59D),
+      56.0 + pulse,
+      Paint()..color = const Color(0x2238BDF8),
     );
     canvas.drawCircle(
       sunCenter,
-      36.0 + pulse * 0.5,
-      Paint()..color = const Color(0x66FFF176),
+      44.0 + pulse * 0.7,
+      Paint()..color = const Color(0x447DD3FC),
     );
-    // Sun core
+    canvas.drawCircle(
+      sunCenter,
+      35.0 + pulse * 0.4,
+      Paint()..color = const Color(0x66BAE6FD),
+    );
+
+    // Rotating radiant sun rays (Light blue shining beams)
+    canvas.save();
+    canvas.translate(sunCenter.dx, sunCenter.dy);
+    canvas.rotate(_sunPulseTime * 0.35);
+    final rayPaint = Paint()
+      ..color = const Color(0x66BAE6FD)
+      ..strokeWidth = 3.6
+      ..strokeCap = StrokeCap.round;
+    const rayCount = 8;
+    for (int i = 0; i < rayCount; i++) {
+      final angle = (i * 2 * pi) / rayCount;
+      final rayStart = Offset(cos(angle) * 35.0, sin(angle) * 35.0);
+      final rayLength = 48.0 + sin(_sunPulseTime * 2.2 + i) * 4.5;
+      final rayEnd = Offset(cos(angle) * rayLength, sin(angle) * rayLength);
+      canvas.drawLine(rayStart, rayEnd, rayPaint);
+    }
+    canvas.restore();
+
+    // Glowing sun core (Luminous ice-blue)
     canvas.drawCircle(
       sunCenter,
       28.0,
-      Paint()..color = const Color(0xFFFFEE58),
+      Paint()..color = const Color(0xFFE0F2FE),
     );
+    // Sun edge border
     canvas.drawCircle(
       sunCenter,
       28.0,
       Paint()
-        ..color = const Color(0xFFFBC02D)
+        ..color = const Color(0xFF38BDF8)
         ..style = PaintingStyle.stroke
-        ..strokeWidth = 2.0,
+        ..strokeWidth = 2.4,
+    );
+    // Sparkle gleam on sun top-left
+    canvas.drawCircle(
+      sunCenter + const Offset(-7, -7),
+      5.0,
+      Paint()..color = Colors.white.withAlpha(210),
+    );
+    canvas.drawCircle(
+      sunCenter + const Offset(-12, -4),
+      2.5,
+      Paint()..color = Colors.white.withAlpha(180),
     );
 
-    // 3. Drifting Clouds (High Altitude)
-    _drawCloud(canvas, Offset(w - _cloudOffset1, 70), 0.75);
-    _drawCloud(canvas, Offset(w * 0.7 - _cloudOffset2, 130), 1.0);
-    _drawCloud(canvas, Offset(w * 1.3 - _cloudOffset3, 180), 0.85);
+    // 3. Drifting Clouds (Light blue and slightly wider)
+    _drawCloud(canvas, Offset(w - _cloudOffset1, 70), 0.85);
+    _drawCloud(canvas, Offset(w * 0.7 - _cloudOffset2, 130), 1.1);
+    _drawCloud(canvas, Offset(w * 1.3 - _cloudOffset3, 180), 0.95);
 
     // 4. Distant Pastel Blue-Green Hills
     _drawDistantHills(canvas, w, groundY);
@@ -110,27 +147,36 @@ class BackgroundComponent extends PositionComponent
   void _drawCloud(Canvas canvas, Offset pos, double scale) {
     canvas.save();
     canvas.translate(pos.dx, pos.dy);
-    canvas.scale(scale, scale);
-    final cloudPaint = Paint()..color = const Color(0xF2FFFFFF);
-    final shadowPaint = Paint()..color = const Color(0x40B3E5FC);
+    canvas.scale(scale * 1.25, scale); // Extra horizontal width for a wider cloud!
 
-    // Bottom soft shadow
-    canvas.drawOval(const Rect.fromLTWH(-55, -8, 110, 42), shadowPaint);
+    // Light blue cartoon cloud palette
+    final cloudBasePaint = Paint()..color = const Color(0xEEBAE6FD); // Vibrant light sky blue
+    final cloudHighlightPaint = Paint()..color = const Color(0xE6F0F9FF); // Crisp ice-blue top puffs
+    final shadowPaint = Paint()..color = const Color(0x380284C7); // Soft royal cyan shadow
 
-    // Puffy cloud lobes
-    canvas.drawCircle(const Offset(-32, 5), 24, cloudPaint);
-    canvas.drawCircle(const Offset(0, -8), 32, cloudPaint);
-    canvas.drawCircle(const Offset(32, 4), 22, cloudPaint);
-    canvas.drawCircle(const Offset(-12, -2), 26, cloudPaint);
-    canvas.drawCircle(const Offset(16, 2), 24, cloudPaint);
+    // Bottom soft shadow (wider)
+    canvas.drawOval(const Rect.fromLTWH(-75, -6, 150, 42), shadowPaint);
+
+    // Puffy cloud lobes (wider horizontal spread)
+    canvas.drawCircle(const Offset(-48, 6), 22, cloudBasePaint);
+    canvas.drawCircle(const Offset(-26, -2), 28, cloudBasePaint);
+    canvas.drawCircle(const Offset(0, -9), 34, cloudBasePaint);
+    canvas.drawCircle(const Offset(26, -2), 28, cloudBasePaint);
+    canvas.drawCircle(const Offset(48, 6), 22, cloudBasePaint);
+    canvas.drawCircle(const Offset(-12, 4), 26, cloudBasePaint);
+    canvas.drawCircle(const Offset(12, 4), 26, cloudBasePaint);
+
+    // Fluffy top highlights for volume & depth
+    canvas.drawCircle(const Offset(-22, -6), 18, cloudHighlightPaint);
+    canvas.drawCircle(const Offset(0, -14), 22, cloudHighlightPaint);
+    canvas.drawCircle(const Offset(22, -6), 18, cloudHighlightPaint);
 
     canvas.restore();
   }
 
   void _drawDistantHills(Canvas canvas, double w, double groundY) {
     final hillPaint = Paint()
-      ..color =
-          const Color(0xFF80CBC4) // Soft muted teal/green
+      ..color = const Color(0xFF1E3A8A).withAlpha(140) // Soft deep navy mountains
       ..style = PaintingStyle.fill;
 
     final path = Path()..moveTo(0, groundY);
@@ -161,12 +207,11 @@ class BackgroundComponent extends PositionComponent
 
   void _drawMidgroundHills(Canvas canvas, double w, double groundY) {
     final hillPaint = Paint()
-      ..color =
-          const Color(0xFF81C784) // Vibrant midground green
+      ..color = const Color(0xFF0284C7) // Vivid ocean blue midground
       ..style = PaintingStyle.fill;
 
     final hillBorderPaint = Paint()
-      ..color = const Color(0xFF43A047)
+      ..color = const Color(0xFF072C5B) // Deep midnight navy border
       ..style = PaintingStyle.stroke
       ..strokeWidth = 2.0;
 
@@ -201,7 +246,7 @@ class BackgroundComponent extends PositionComponent
     for (double x = startX - period; x < w + period; x += 60.0) {
       flowerPaint.color = Colors.white;
       canvas.drawCircle(Offset(x + 20, groundY - 35), 3.0, flowerPaint);
-      flowerPaint.color = const Color(0xFFFFD54F);
+      flowerPaint.color = const Color(0xFF38BDF8); // Bright cyan flower core
       canvas.drawCircle(Offset(x + 20, groundY - 35), 1.5, flowerPaint);
     }
   }

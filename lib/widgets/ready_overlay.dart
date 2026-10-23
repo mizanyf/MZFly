@@ -56,9 +56,9 @@ class _ReadyOverlayState extends State<ReadyOverlay>
                   padding: const EdgeInsets.all(20),
                   decoration: BoxDecoration(
                     shape: BoxShape.circle,
-                    color: Colors.white.withAlpha(225),
+                    color: const Color(0xFFF0F9FF).withAlpha(240),
                     border: Border.all(
-                      color: const Color(0xFF0F172A),
+                      color: const Color(0xFF071530),
                       width: 3.2,
                     ),
                     boxShadow: const [
@@ -84,15 +84,15 @@ class _ReadyOverlayState extends State<ReadyOverlay>
                   vertical: 10,
                 ),
                 decoration: BoxDecoration(
-                  color: const Color(0xFFFFCA28),
+                  color: const Color(0xFF38BDF8),
                   borderRadius: BorderRadius.circular(22),
                   border: Border.all(
-                    color: const Color(0xFF0F172A),
+                    color: const Color(0xFF071530),
                     width: 3.2,
                   ),
                   boxShadow: const [
                     BoxShadow(
-                      color: Color(0xFF0F172A),
+                      color: Color(0xFF0284C7),
                       offset: Offset(0, 4.5),
                       blurRadius: 0,
                     ),
@@ -105,7 +105,7 @@ class _ReadyOverlayState extends State<ReadyOverlay>
                     fontSize: 22,
                     fontWeight: FontWeight.w900,
                     letterSpacing: 1.5,
-                    color: Color(0xFF0F172A),
+                    color: Color(0xFF071530),
                   ),
                 ),
               ),
@@ -116,8 +116,12 @@ class _ReadyOverlayState extends State<ReadyOverlay>
                   vertical: 5,
                 ),
                 decoration: BoxDecoration(
-                  color: Colors.black.withAlpha(150),
+                  color: const Color(0xE6071530),
                   borderRadius: BorderRadius.circular(14),
+                  border: Border.all(
+                    color: const Color(0xFF38BDF8).withAlpha(120),
+                    width: 1.5,
+                  ),
                 ),
                 child: const Text(
                   'Tap anywhere to flap upward',

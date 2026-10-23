@@ -39,10 +39,10 @@ class PipeComponent extends PositionComponent with CollisionCallbacks {
     const capHeight = 32.0;
     const capOverhang = 6.0;
 
-    const mainGreen = Color(0xFF4CAF50);
-    const shadowGreen = Color(0xFF2E7D32);
-    const highlightGreen = Color(0xFFA5D6A7);
-    const outlineColor = Color(0xFF0F3818);
+    const mainBlue = Color(0xFF0284C7);
+    const shadowBlue = Color(0xFF072C5B);
+    const highlightBlue = Color(0xFF7DD3FC);
+    const outlineColor = Color(0xFF071530);
 
     final outlinePaint = Paint()
       ..color = outlineColor
@@ -55,18 +55,18 @@ class PipeComponent extends PositionComponent with CollisionCallbacks {
     if (isTop) {
       // 1. Top pipe body (extends from y=0 down to h - capHeight)
       final bodyRect = Rect.fromLTWH(0, 0, w, max(0.0, h - capHeight));
-      fillPaint.color = mainGreen;
+      fillPaint.color = mainBlue;
       canvas.drawRect(bodyRect, fillPaint);
 
       // Highlight band
       canvas.drawRect(
         Rect.fromLTWH(10, 0, 10, max(0.0, h - capHeight)),
-        Paint()..color = highlightGreen,
+        Paint()..color = highlightBlue,
       );
       // Shadow band
       canvas.drawRect(
         Rect.fromLTWH(w - 14, 0, 8, max(0.0, h - capHeight)),
-        Paint()..color = shadowGreen,
+        Paint()..color = shadowBlue,
       );
       canvas.drawRect(bodyRect, outlinePaint);
 
@@ -78,13 +78,13 @@ class PipeComponent extends PositionComponent with CollisionCallbacks {
         capHeight,
       );
       final rCap = RRect.fromRectAndRadius(capRect, const Radius.circular(5));
-      fillPaint.color = mainGreen;
+      fillPaint.color = mainBlue;
       canvas.drawRRect(rCap, fillPaint);
 
       // Cap highlight & shadow
       canvas.drawRect(
         Rect.fromLTWH(-capOverhang + 12, h - capHeight + 3, 12, capHeight - 6),
-        Paint()..color = highlightGreen,
+        Paint()..color = highlightBlue,
       );
       canvas.drawRect(
         Rect.fromLTWH(
@@ -93,7 +93,7 @@ class PipeComponent extends PositionComponent with CollisionCallbacks {
           8,
           capHeight - 6,
         ),
-        Paint()..color = shadowGreen,
+        Paint()..color = shadowBlue,
       );
       canvas.drawRRect(rCap, outlinePaint);
 
@@ -102,7 +102,7 @@ class PipeComponent extends PositionComponent with CollisionCallbacks {
         Offset(-capOverhang + 2, h - 3),
         Offset(w + capOverhang - 2, h - 3),
         Paint()
-          ..color = shadowGreen
+          ..color = shadowBlue
           ..strokeWidth = 3.0,
       );
     } else {
@@ -114,34 +114,34 @@ class PipeComponent extends PositionComponent with CollisionCallbacks {
         capHeight,
       );
       final rCap = RRect.fromRectAndRadius(capRect, const Radius.circular(5));
-      fillPaint.color = mainGreen;
+      fillPaint.color = mainBlue;
       canvas.drawRRect(rCap, fillPaint);
 
       // Cap highlight & shadow
       canvas.drawRect(
         Rect.fromLTWH(-capOverhang + 12, 3, 12, capHeight - 6),
-        Paint()..color = highlightGreen,
+        Paint()..color = highlightBlue,
       );
       canvas.drawRect(
         Rect.fromLTWH(w + capOverhang - 16, 3, 8, capHeight - 6),
-        Paint()..color = shadowGreen,
+        Paint()..color = shadowBlue,
       );
       canvas.drawRRect(rCap, outlinePaint);
 
       // 2. Bottom pipe body (extends from y=capHeight down to h)
       final bodyRect = Rect.fromLTWH(0, capHeight, w, max(0.0, h - capHeight));
-      fillPaint.color = mainGreen;
+      fillPaint.color = mainBlue;
       canvas.drawRect(bodyRect, fillPaint);
 
       // Highlight band
       canvas.drawRect(
         Rect.fromLTWH(10, capHeight, 10, max(0.0, h - capHeight)),
-        Paint()..color = highlightGreen,
+        Paint()..color = highlightBlue,
       );
       // Shadow band
       canvas.drawRect(
         Rect.fromLTWH(w - 14, capHeight, 8, max(0.0, h - capHeight)),
-        Paint()..color = shadowGreen,
+        Paint()..color = shadowBlue,
       );
       canvas.drawRect(bodyRect, outlinePaint);
 

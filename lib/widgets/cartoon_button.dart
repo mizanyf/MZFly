@@ -86,13 +86,21 @@ class _CartoonButtonState extends State<CartoonButton> {
                 widget.icon,
                 color: widget.textColor,
                 size: widget.fontSize * 1.15,
-                shadows: const [
-                  Shadow(
-                    offset: Offset(1, 1),
-                    color: Colors.black45,
-                    blurRadius: 2,
-                  ),
-                ],
+                shadows: widget.textColor.computeLuminance() < 0.4
+                    ? const [
+                        Shadow(
+                          offset: Offset(0, 1),
+                          color: Colors.white38,
+                          blurRadius: 0,
+                        ),
+                      ]
+                    : const [
+                        Shadow(
+                          offset: Offset(1, 1),
+                          color: Colors.black45,
+                          blurRadius: 2,
+                        ),
+                      ],
               ),
               if (widget.text != null) const SizedBox(width: 8),
             ],
@@ -105,18 +113,26 @@ class _CartoonButtonState extends State<CartoonButton> {
                   fontWeight: FontWeight.w900,
                   letterSpacing: 1.5,
                   color: widget.textColor,
-                  shadows: const [
-                    Shadow(
-                      offset: Offset(0, 2),
-                      color: Color(0xFF0F172A),
-                      blurRadius: 0,
-                    ),
-                    Shadow(
-                      offset: Offset(1.5, 2.5),
-                      color: Colors.black45,
-                      blurRadius: 2,
-                    ),
-                  ],
+                  shadows: widget.textColor.computeLuminance() < 0.4
+                      ? const [
+                          Shadow(
+                            offset: Offset(0, 1),
+                            color: Colors.white54,
+                            blurRadius: 0,
+                          ),
+                        ]
+                      : const [
+                          Shadow(
+                            offset: Offset(0, 2),
+                            color: Color(0xFF071530),
+                            blurRadius: 0,
+                          ),
+                          Shadow(
+                            offset: Offset(1.5, 2.5),
+                            color: Colors.black45,
+                            blurRadius: 2,
+                          ),
+                        ],
                 ),
               ),
           ],

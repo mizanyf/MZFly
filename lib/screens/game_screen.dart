@@ -70,7 +70,7 @@ class _GameScreenState extends State<GameScreen> with WidgetsBindingObserver {
         }
       },
       child: Scaffold(
-        backgroundColor: const Color(0xFF29B6F6),
+        backgroundColor: const Color(0xFF0A1E3F),
         body: GameWidget<MzFlyGame>.controlled(
           gameFactory: () => _game,
           overlayBuilderMap: {

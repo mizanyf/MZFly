@@ -38,7 +38,7 @@ class MzFlyGame extends FlameGame with HasCollisionDetection, TapCallbacks {
   double _shakeDuration = 0.0;
 
   @override
-  Color backgroundColor() => const Color(0xFF29B6F6);
+  Color backgroundColor() => const Color(0xFF0A1E3F);
 
   @override
   Future<void> onLoad() async {
@@ -70,7 +70,7 @@ class MzFlyGame extends FlameGame with HasCollisionDetection, TapCallbacks {
   }
 
   void _positionBirdForMenu() {
-    bird.reset(Vector2(size.x * 0.5, size.y * 0.38));
+    bird.reset(Vector2(size.x * 0.5, size.y * 0.33));
   }
 
   /// Called when the player taps to start or flaps during gameplay.

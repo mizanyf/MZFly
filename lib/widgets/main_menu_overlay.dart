@@ -54,14 +54,14 @@ class _MainMenuOverlayState extends State<MainMenuOverlay>
           padding: const EdgeInsets.symmetric(horizontal: 24.0),
           child: Column(
             children: [
-              // Top area kept clear for the floating animated cartoon bird
-              const Spacer(),
+              // Top area reserved for the animated hovering cartoon bird
+              const Spacer(flex: 6),
 
-              // Bottom Section: MZ FLY Title -> Best Score -> Play Button -> SFX/BGM
+              // Main Section: MZ FLY Title -> Best Score -> Play Button -> SFX/BGM
               Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  // 3D Cartoon MZ FLY Title (No background box)
+                  // 3D Cartoon Title matching the MZ FLY logo
                   AnimatedBuilder(
                     animation: _bounceAnimation,
                     builder: (context, child) {
@@ -70,81 +70,12 @@ class _MainMenuOverlayState extends State<MainMenuOverlay>
                         child: child,
                       );
                     },
-                    child: Stack(
-                      alignment: Alignment.center,
-                      children: [
-                        // Bottom dark 3D drop shadow
-                        Transform.translate(
-                          offset: const Offset(0, 6.5),
-                          child: Text(
-                            'MZ FLY',
-                            style: TextStyle(
-                              fontFamily: 'Poppins',
-                              fontSize: 52,
-                              fontWeight: FontWeight.w900,
-                              letterSpacing: 4.0,
-                              foreground: Paint()
-                                ..style = PaintingStyle.stroke
-                                ..strokeWidth = 9.0
-                                ..strokeCap = StrokeCap.round
-                                ..strokeJoin = StrokeJoin.round
-                                ..color = const Color(0xFF0F172A),
-                            ),
-                          ),
-                        ),
-                        // 3D warm orange depth bevel
-                        Transform.translate(
-                          offset: const Offset(0, 3.5),
-                          child: Text(
-                            'MZ FLY',
-                            style: TextStyle(
-                              fontFamily: 'Poppins',
-                              fontSize: 52,
-                              fontWeight: FontWeight.w900,
-                              letterSpacing: 4.0,
-                              foreground: Paint()
-                                ..style = PaintingStyle.stroke
-                                ..strokeWidth = 8.0
-                                ..strokeCap = StrokeCap.round
-                                ..strokeJoin = StrokeJoin.round
-                                ..color = const Color(0xFFE65100),
-                            ),
-                          ),
-                        ),
-                        // Outer dark border stroke
-                        Text(
-                          'MZ FLY',
-                          style: TextStyle(
-                            fontFamily: 'Poppins',
-                            fontSize: 52,
-                            fontWeight: FontWeight.w900,
-                            letterSpacing: 4.0,
-                            foreground: Paint()
-                              ..style = PaintingStyle.stroke
-                              ..strokeWidth = 8.0
-                              ..strokeCap = StrokeCap.round
-                              ..strokeJoin = StrokeJoin.round
-                              ..color = const Color(0xFF0F172A),
-                          ),
-                        ),
-                        // Vibrant golden yellow text face
-                        const Text(
-                          'MZ FLY',
-                          style: TextStyle(
-                            fontFamily: 'Poppins',
-                            fontSize: 52,
-                            fontWeight: FontWeight.w900,
-                            letterSpacing: 4.0,
-                            color: Color(0xFFFFD54F),
-                          ),
-                        ),
-                      ],
-                    ),
+                    child: _buildLogoTitle(),
                   ),
 
                   const SizedBox(height: 14),
 
-                  // Best score pill
+                  // Best score pill (Deep dark blue with light blue border & white text)
                   ValueListenableBuilder<int>(
                     valueListenable: widget.game.bestScoreNotifier,
                     builder: (context, best, _) {
@@ -154,15 +85,15 @@ class _MainMenuOverlayState extends State<MainMenuOverlay>
                           vertical: 9,
                         ),
                         decoration: BoxDecoration(
-                          color: const Color(0xFF1E293B),
+                          color: const Color(0xFF0C1E3C), // Deep dark navy blue
                           borderRadius: BorderRadius.circular(24),
                           border: Border.all(
-                            color: const Color(0xFFFFD54F),
+                            color: const Color(0xFF38BDF8), // Vibrant light cyan/sky blue
                             width: 2.8,
                           ),
                           boxShadow: const [
                             BoxShadow(
-                              color: Color(0xFF0F172A),
+                              color: Color(0xFF071530),
                               offset: Offset(0, 4.5),
                               blurRadius: 0,
                             ),
@@ -173,7 +104,7 @@ class _MainMenuOverlayState extends State<MainMenuOverlay>
                           children: [
                             const Icon(
                               Icons.emoji_events_rounded,
-                              color: Color(0xFFFFD54F),
+                              color: Color(0xFFFFD54F), // Gold trophy
                               size: 24,
                             ),
                             const SizedBox(width: 8),
@@ -184,7 +115,7 @@ class _MainMenuOverlayState extends State<MainMenuOverlay>
                                 fontSize: 18,
                                 fontWeight: FontWeight.w900,
                                 letterSpacing: 1.4,
-                                color: Colors.white,
+                                color: Colors.white, // Crisp white text
                               ),
                             ),
                           ],
@@ -195,12 +126,13 @@ class _MainMenuOverlayState extends State<MainMenuOverlay>
 
                   const SizedBox(height: 16),
 
-                  // PLAY BUTTON
+                  // PLAY BUTTON (Vibrant light blue with bold black/dark navy text)
                   CartoonButton(
                     text: 'PLAY NOW',
                     icon: Icons.play_arrow_rounded,
-                    primaryColor: const Color(0xFF4CAF50),
-                    shadowColor: const Color(0xFF2E7D32),
+                    primaryColor: const Color(0xFF38BDF8), // Light cyan / sky blue
+                    shadowColor: const Color(0xFF0284C7),  // Ocean royal blue depth
+                    textColor: const Color(0xFF071530),    // Bold black/dark navy text
                     fontSize: 22,
                     height: 58,
                     minWidth: 220,
@@ -209,49 +141,206 @@ class _MainMenuOverlayState extends State<MainMenuOverlay>
                     },
                   ),
 
-                  const SizedBox(height: 18),
+                  const SizedBox(height: 16),
 
                   // Audio Toggles (SFX, BGM)
-                  Padding(
-                    padding: const EdgeInsets.only(bottom: 18.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        // SFX Toggle
-                        _CircleIconButton(
-                          icon: _storage.soundEnabled
-                              ? Icons.volume_up_rounded
-                              : Icons.volume_off_rounded,
-                          label: 'SFX',
-                          isActive: _storage.soundEnabled,
-                          onPressed: () async {
-                            await _audio.toggleSound();
-                            setState(() {});
-                          },
-                        ),
-                        const SizedBox(width: 24),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      // SFX Toggle
+                      _CircleIconButton(
+                        icon: _storage.soundEnabled
+                            ? Icons.volume_up_rounded
+                            : Icons.volume_off_rounded,
+                        label: 'SFX',
+                        isActive: _storage.soundEnabled,
+                        onPressed: () async {
+                          await _audio.toggleSound();
+                          setState(() {});
+                        },
+                      ),
+                      const SizedBox(width: 24),
 
-                        // BGM Toggle
-                        _CircleIconButton(
-                          icon: _storage.musicEnabled
-                              ? Icons.music_note_rounded
-                              : Icons.music_off_rounded,
-                          label: 'BGM',
-                          isActive: _storage.musicEnabled,
-                          onPressed: () async {
-                            await _audio.toggleMusic();
-                            setState(() {});
-                          },
-                        ),
-                      ],
-                    ),
+                      // BGM Toggle
+                      _CircleIconButton(
+                        icon: _storage.musicEnabled
+                            ? Icons.music_note_rounded
+                            : Icons.music_off_rounded,
+                        label: 'BGM',
+                        isActive: _storage.musicEnabled,
+                        onPressed: () async {
+                          await _audio.toggleMusic();
+                          setState(() {});
+                        },
+                      ),
+                    ],
                   ),
                 ],
               ),
+
+              // Bottom Spacer: lifts Play button and Best Score higher up
+              const Spacer(flex: 4),
             ],
           ),
         ),
       ),
+    );
+  }
+
+  /// Builds the 3D 'MZ FLY' title matching the logo style
+  Widget _buildLogoTitle() {
+    return Stack(
+      alignment: Alignment.center,
+      children: [
+        // Subtle stylized cartoon cloud/pill perfectly centered behind the text
+        Transform.translate(
+          offset: const Offset(0, 3.0), // Compensate for 3D depth drop shadow
+          child: Container(
+            padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 10),
+            decoration: BoxDecoration(
+              color: Colors.white.withAlpha(50),
+              borderRadius: BorderRadius.circular(38),
+              border: Border.all(
+                color: Colors.white.withAlpha(90),
+                width: 1.8,
+              ),
+              boxShadow: [
+                BoxShadow(
+                  color: const Color(0xFF38BDF8).withAlpha(55),
+                  blurRadius: 18,
+                  spreadRadius: 4,
+                ),
+              ],
+            ),
+            child: const Opacity(
+              opacity: 0.0,
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text(
+                    'MZ',
+                    style: TextStyle(
+                      fontFamily: 'Poppins',
+                      fontSize: 52,
+                      fontWeight: FontWeight.w900,
+                      letterSpacing: 4.0,
+                    ),
+                  ),
+                  SizedBox(width: 12),
+                  Text(
+                    'FLY',
+                    style: TextStyle(
+                      fontFamily: 'Poppins',
+                      fontSize: 52,
+                      fontWeight: FontWeight.w900,
+                      letterSpacing: 4.0,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
+
+        // 3D Words: MZ in bright cyan blue, FLY in crisp white
+        Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            _build3DWord(
+              'MZ',
+              textColor: const Color(0xFF38BDF8), // Bright sky cyan
+              bevelColor: const Color(0xFF0284C7), // Royal blue 3D bevel
+              shadowColor: const Color(0xFF071530), // Deep midnight navy shadow
+            ),
+            const SizedBox(width: 12),
+            _build3DWord(
+              'FLY',
+              textColor: Colors.white, // Pure crisp white
+              bevelColor: const Color(0xFF94A3B8), // Soft slate bevel
+              shadowColor: const Color(0xFF071530), // Deep midnight navy shadow
+            ),
+          ],
+        ),
+      ],
+    );
+  }
+
+  /// Helper to render each 3D word with multi-layer cartoon stroke depth
+  Widget _build3DWord(
+    String word, {
+    required Color textColor,
+    required Color bevelColor,
+    required Color shadowColor,
+  }) {
+    return Stack(
+      alignment: Alignment.center,
+      children: [
+        // 1. Bottom deep drop shadow
+        Transform.translate(
+          offset: const Offset(0, 6.5),
+          child: Text(
+            word,
+            style: TextStyle(
+              fontFamily: 'Poppins',
+              fontSize: 52,
+              fontWeight: FontWeight.w900,
+              letterSpacing: 4.0,
+              foreground: Paint()
+                ..style = PaintingStyle.stroke
+                ..strokeWidth = 9.0
+                ..strokeCap = StrokeCap.round
+                ..strokeJoin = StrokeJoin.round
+                ..color = shadowColor,
+            ),
+          ),
+        ),
+        // 2. 3D depth bevel
+        Transform.translate(
+          offset: const Offset(0, 3.5),
+          child: Text(
+            word,
+            style: TextStyle(
+              fontFamily: 'Poppins',
+              fontSize: 52,
+              fontWeight: FontWeight.w900,
+              letterSpacing: 4.0,
+              foreground: Paint()
+                ..style = PaintingStyle.stroke
+                ..strokeWidth = 8.0
+                ..strokeCap = StrokeCap.round
+                ..strokeJoin = StrokeJoin.round
+                ..color = bevelColor,
+            ),
+          ),
+        ),
+        // 3. Outer dark border stroke
+        Text(
+          word,
+          style: TextStyle(
+            fontFamily: 'Poppins',
+            fontSize: 52,
+            fontWeight: FontWeight.w900,
+            letterSpacing: 4.0,
+            foreground: Paint()
+              ..style = PaintingStyle.stroke
+              ..strokeWidth = 8.0
+              ..strokeCap = StrokeCap.round
+              ..strokeJoin = StrokeJoin.round
+              ..color = shadowColor,
+          ),
+        ),
+        // 4. Vibrant face color
+        Text(
+          word,
+          style: TextStyle(
+            fontFamily: 'Poppins',
+            fontSize: 52,
+            fontWeight: FontWeight.w900,
+            letterSpacing: 4.0,
+            color: textColor,
+          ),
+        ),
+      ],
     );
   }
 }
@@ -282,12 +371,12 @@ class _CircleIconButton extends StatelessWidget {
             decoration: BoxDecoration(
               shape: BoxShape.circle,
               color: isActive
-                  ? const Color(0xFF42A5F5)
-                  : const Color(0xFF94A3B8),
-              border: Border.all(color: const Color(0xFF0F172A), width: 2.8),
+                  ? const Color(0xFF0284C7) // Royal blue
+                  : const Color(0xFF334155), // Inactive dark slate
+              border: Border.all(color: const Color(0xFF071530), width: 2.8),
               boxShadow: const [
                 BoxShadow(
-                  color: Color(0xFF0F172A),
+                  color: Color(0xFF071530),
                   offset: Offset(0, 3.5),
                   blurRadius: 0,
                 ),
@@ -304,7 +393,7 @@ class _CircleIconButton extends StatelessWidget {
             fontSize: 13,
             fontWeight: FontWeight.w900,
             letterSpacing: 0.8,
-            color: Color(0xFF0F172A),
+            color: Color(0xFF071530), // Dark black/navy label
           ),
         ),
       ],

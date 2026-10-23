@@ -52,20 +52,20 @@ class _GameOverOverlayState extends State<GameOverOverlay>
     Color medalColor = const Color(0xFFCD7F32);
     if (score >= 40) {
       tier = 'PLATINUM';
-      medalColor = const Color(0xFFE0E7FF);
+      medalColor = const Color(0xFF38BDF8); // Cyan platinum
     } else if (score >= 20) {
       tier = 'GOLD';
       medalColor = const Color(0xFFFFD700);
     } else if (score >= 10) {
       tier = 'SILVER';
-      medalColor = const Color(0xFFC0C0C0);
+      medalColor = const Color(0xFF94A3B8);
     }
 
     return Container(
       margin: const EdgeInsets.only(top: 8),
       padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 4),
       decoration: BoxDecoration(
-        color: medalColor.withAlpha(50),
+        color: medalColor.withAlpha(40),
         borderRadius: BorderRadius.circular(16),
         border: Border.all(color: medalColor, width: 2),
       ),
@@ -81,9 +81,7 @@ class _GameOverOverlayState extends State<GameOverOverlay>
               fontSize: 12,
               fontWeight: FontWeight.w900,
               letterSpacing: 1.0,
-              color: medalColor == const Color(0xFFE0E7FF)
-                  ? Colors.black87
-                  : medalColor,
+              color: medalColor,
             ),
           ),
         ],
@@ -98,7 +96,7 @@ class _GameOverOverlayState extends State<GameOverOverlay>
     final isNewBest = widget.game.isNewBest;
 
     return Container(
-      color: Colors.black.withAlpha(140),
+      color: Colors.black.withAlpha(160),
       child: Center(
         child: AnimatedBuilder(
           animation: _animController,
@@ -115,12 +113,15 @@ class _GameOverOverlayState extends State<GameOverOverlay>
             width: 320,
             padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 26),
             decoration: BoxDecoration(
-              color: const Color(0xFFFFFBEB), // Warm parchment
+              color: const Color(0xFF0C1E3C), // Deep dark navy blue
               borderRadius: BorderRadius.circular(28),
-              border: Border.all(color: const Color(0xFF0F172A), width: 3.5),
+              border: Border.all(
+                color: const Color(0xFF38BDF8), // Vibrant light cyan/sky blue
+                width: 3.5,
+              ),
               boxShadow: const [
                 BoxShadow(
-                  color: Color(0xFF0F172A),
+                  color: Color(0xFF071530),
                   offset: Offset(0, 8),
                   blurRadius: 0,
                 ),
@@ -129,22 +130,22 @@ class _GameOverOverlayState extends State<GameOverOverlay>
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                // Game Over Cartoon Banner
+                // Game Over Cartoon Banner (Vibrant royal blue with white text)
                 Container(
                   padding: const EdgeInsets.symmetric(
                     horizontal: 24,
                     vertical: 8,
                   ),
                   decoration: BoxDecoration(
-                    color: const Color(0xFFEF4444),
+                    color: const Color(0xFF0284C7),
                     borderRadius: BorderRadius.circular(20),
                     border: Border.all(
-                      color: const Color(0xFF0F172A),
+                      color: const Color(0xFF071530),
                       width: 3.0,
                     ),
                     boxShadow: const [
                       BoxShadow(
-                        color: Color(0xFF991B1B),
+                        color: Color(0xFF0A3B74),
                         offset: Offset(0, 4),
                         blurRadius: 0,
                       ),
@@ -161,7 +162,7 @@ class _GameOverOverlayState extends State<GameOverOverlay>
                       shadows: [
                         Shadow(
                           offset: Offset(1.5, 1.5),
-                          color: Colors.black45,
+                          color: Color(0xFF071530),
                           blurRadius: 2,
                         ),
                       ],
@@ -170,17 +171,17 @@ class _GameOverOverlayState extends State<GameOverOverlay>
                 ),
                 const SizedBox(height: 18),
 
-                // Scoreboard Box
+                // Scoreboard Box (Ice-blue container)
                 Container(
                   padding: const EdgeInsets.symmetric(
                     horizontal: 20,
                     vertical: 16,
                   ),
                   decoration: BoxDecoration(
-                    color: Colors.white,
+                    color: const Color(0xFFF0F9FF), // Ice-blue white card
                     borderRadius: BorderRadius.circular(20),
                     border: Border.all(
-                      color: const Color(0xFFE2E8F0),
+                      color: const Color(0xFFBAE6FD),
                       width: 2.4,
                     ),
                   ),
@@ -196,7 +197,7 @@ class _GameOverOverlayState extends State<GameOverOverlay>
                               fontFamily: 'Poppins',
                               fontSize: 16,
                               fontWeight: FontWeight.w900,
-                              color: Color(0xFF64748B),
+                              color: Color(0xFF0369A1), // Slate ocean blue
                             ),
                           ),
                           Text(
@@ -205,12 +206,16 @@ class _GameOverOverlayState extends State<GameOverOverlay>
                               fontFamily: 'Poppins',
                               fontSize: 34,
                               fontWeight: FontWeight.w900,
-                              color: Color(0xFF0F172A),
+                              color: Color(0xFF071530), // Black/dark navy score
                             ),
                           ),
                         ],
                       ),
-                      const Divider(height: 20, thickness: 1.5),
+                      const Divider(
+                        height: 20,
+                        thickness: 1.5,
+                        color: Color(0xFFBAE6FD),
+                      ),
                       // Best Score
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -221,7 +226,7 @@ class _GameOverOverlayState extends State<GameOverOverlay>
                               fontFamily: 'Poppins',
                               fontSize: 16,
                               fontWeight: FontWeight.w900,
-                              color: Color(0xFF64748B),
+                              color: Color(0xFF0369A1),
                             ),
                           ),
                           Text(
@@ -230,7 +235,7 @@ class _GameOverOverlayState extends State<GameOverOverlay>
                               fontFamily: 'Poppins',
                               fontSize: 26,
                               fontWeight: FontWeight.w900,
-                              color: Color(0xFFD97706),
+                              color: Color(0xFF0284C7), // Royal blue best score
                             ),
                           ),
                         ],
@@ -245,11 +250,11 @@ class _GameOverOverlayState extends State<GameOverOverlay>
                             vertical: 5,
                           ),
                           decoration: BoxDecoration(
-                            color: const Color(0xFF10B981),
+                            color: const Color(0xFF38BDF8), // Bright cyan
                             borderRadius: BorderRadius.circular(14),
                             boxShadow: const [
                               BoxShadow(
-                                color: Color(0xFF059669),
+                                color: Color(0xFF0284C7),
                                 offset: Offset(0, 3),
                                 blurRadius: 0,
                               ),
@@ -260,7 +265,7 @@ class _GameOverOverlayState extends State<GameOverOverlay>
                             children: [
                               Icon(
                                 Icons.stars_rounded,
-                                color: Colors.white,
+                                color: Color(0xFF071530),
                                 size: 18,
                               ),
                               SizedBox(width: 6),
@@ -271,7 +276,7 @@ class _GameOverOverlayState extends State<GameOverOverlay>
                                   fontSize: 13,
                                   fontWeight: FontWeight.w900,
                                   letterSpacing: 1.0,
-                                  color: Colors.white,
+                                  color: Color(0xFF071530), // Dark text on light blue
                                 ),
                               ),
                             ],
@@ -285,12 +290,13 @@ class _GameOverOverlayState extends State<GameOverOverlay>
                 ),
                 const SizedBox(height: 22),
 
-                // Play Again Button
+                // Play Again Button (Bright light blue with black text)
                 CartoonButton(
                   text: 'PLAY AGAIN',
                   icon: Icons.replay_rounded,
-                  primaryColor: const Color(0xFF10B981),
-                  shadowColor: const Color(0xFF059669),
+                  primaryColor: const Color(0xFF38BDF8), // Light cyan / sky blue
+                  shadowColor: const Color(0xFF0284C7),  // Ocean royal blue depth
+                  textColor: const Color(0xFF071530),    // Bold black/dark navy text
                   fontSize: 20,
                   height: 54,
                   minWidth: 230,
@@ -300,12 +306,13 @@ class _GameOverOverlayState extends State<GameOverOverlay>
                 ),
                 const SizedBox(height: 12),
 
-                // Home / Menu Button
+                // Home / Menu Button (Deep navy blue with crisp white text)
                 CartoonButton(
                   text: 'MAIN MENU',
                   icon: Icons.home_rounded,
-                  primaryColor: const Color(0xFFF59E0B),
-                  shadowColor: const Color(0xFFD97706),
+                  primaryColor: const Color(0xFF1E40AF), // Deep royal navy
+                  shadowColor: const Color(0xFF0F2753),  // Deep shadow
+                  textColor: Colors.white,               // Crisp white text
                   fontSize: 18,
                   height: 48,
                   minWidth: 230,
