@@ -55,7 +55,7 @@ class _MainMenuOverlayState extends State<MainMenuOverlay>
           child: Column(
             children: [
               // Top area reserved for the animated hovering cartoon bird
-              const Spacer(flex: 6),
+              const Spacer(flex: 4),
 
               // Main Section: MZ FLY Title -> Best Score -> Play Button -> SFX/BGM
               Column(
@@ -73,7 +73,7 @@ class _MainMenuOverlayState extends State<MainMenuOverlay>
                     child: _buildLogoTitle(),
                   ),
 
-                  const SizedBox(height: 14),
+                  const SizedBox(height: 18),
 
                   // Best score pill (Deep dark blue with light blue border & white text)
                   ValueListenableBuilder<int>(
@@ -124,7 +124,7 @@ class _MainMenuOverlayState extends State<MainMenuOverlay>
                     },
                   ),
 
-                  const SizedBox(height: 16),
+                  const SizedBox(height: 18),
 
                   // PLAY BUTTON (Vibrant light blue with bold black/dark navy text)
                   CartoonButton(
@@ -141,7 +141,7 @@ class _MainMenuOverlayState extends State<MainMenuOverlay>
                     },
                   ),
 
-                  const SizedBox(height: 16),
+                  const SizedBox(height: 18),
 
                   // Audio Toggles (SFX, BGM)
                   Row(

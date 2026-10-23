@@ -70,7 +70,7 @@ class MzFlyGame extends FlameGame with HasCollisionDetection, TapCallbacks {
   }
 
   void _positionBirdForMenu() {
-    bird.reset(Vector2(size.x * 0.5, size.y * 0.33));
+    bird.reset(Vector2(size.x * 0.5, size.y * 0.25));
   }
 
   /// Called when the player taps to start or flaps during gameplay.
