@@ -32,21 +32,22 @@ class GameHud extends StatelessWidget {
                         scale: scale,
                         child: Container(
                           padding: const EdgeInsets.symmetric(
-                            horizontal: 22,
-                            vertical: 6,
+                            horizontal: 24,
+                            vertical: 4,
                           ),
                           decoration: BoxDecoration(
-                            color: Colors.black.withAlpha(90),
+                            color: Colors.black.withAlpha(95),
                             borderRadius: BorderRadius.circular(24),
                             border: Border.all(
-                              color: Colors.white.withAlpha(200),
-                              width: 2.0,
+                              color: Colors.white.withAlpha(220),
+                              width: 2.5,
                             ),
                           ),
                           child: Text(
                             '$score',
                             style: const TextStyle(
-                              fontSize: 42,
+                              fontFamily: 'Poppins',
+                              fontSize: 44,
                               fontWeight: FontWeight.w900,
                               letterSpacing: 2.0,
                               color: Colors.white,
@@ -83,7 +84,7 @@ class GameHud extends StatelessWidget {
                     shape: BoxShape.circle,
                     border: Border.all(
                       color: const Color(0xFF0F172A),
-                      width: 2.6,
+                      width: 2.8,
                     ),
                     boxShadow: const [
                       BoxShadow(

@@ -34,6 +34,11 @@ class PipeComponent extends PositionComponent with CollisionCallbacks {
   void render(Canvas canvas) {
     super.render(canvas);
 
+    final w = size.x;
+    final h = size.y;
+    const capHeight = 32.0;
+    const capOverhang = 6.0;
+
     const mainGreen = Color(0xFF4CAF50);
     const shadowGreen = Color(0xFF2E7D32);
     const highlightGreen = Color(0xFFA5D6A7);
@@ -46,11 +51,6 @@ class PipeComponent extends PositionComponent with CollisionCallbacks {
       ..strokeJoin = StrokeJoin.round;
 
     final fillPaint = Paint()..style = PaintingStyle.fill;
-
-    final w = size.x;
-    final h = size.y;
-    const capHeight = 28.0;
-    const capOverhang = 6.0;
 
     if (isTop) {
       // 1. Top pipe body (extends from y=0 down to h - capHeight)

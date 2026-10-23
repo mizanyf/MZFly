@@ -111,7 +111,6 @@ class BackgroundComponent extends PositionComponent
     canvas.save();
     canvas.translate(pos.dx, pos.dy);
     canvas.scale(scale, scale);
-
     final cloudPaint = Paint()..color = const Color(0xF2FFFFFF);
     final shadowPaint = Paint()..color = const Color(0x40B3E5FC);
 

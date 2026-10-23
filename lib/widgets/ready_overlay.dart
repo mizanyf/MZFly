@@ -56,10 +56,10 @@ class _ReadyOverlayState extends State<ReadyOverlay>
                   padding: const EdgeInsets.all(20),
                   decoration: BoxDecoration(
                     shape: BoxShape.circle,
-                    color: Colors.white.withAlpha(220),
+                    color: Colors.white.withAlpha(225),
                     border: Border.all(
                       color: const Color(0xFF0F172A),
-                      width: 3.0,
+                      width: 3.2,
                     ),
                     boxShadow: const [
                       BoxShadow(
@@ -80,20 +80,20 @@ class _ReadyOverlayState extends State<ReadyOverlay>
               // Instruction banner
               Container(
                 padding: const EdgeInsets.symmetric(
-                  horizontal: 24,
+                  horizontal: 26,
                   vertical: 10,
                 ),
                 decoration: BoxDecoration(
                   color: const Color(0xFFFFCA28),
-                  borderRadius: BorderRadius.circular(20),
+                  borderRadius: BorderRadius.circular(22),
                   border: Border.all(
                     color: const Color(0xFF0F172A),
-                    width: 3.0,
+                    width: 3.2,
                   ),
                   boxShadow: const [
                     BoxShadow(
                       color: Color(0xFF0F172A),
-                      offset: Offset(0, 4),
+                      offset: Offset(0, 4.5),
                       blurRadius: 0,
                     ),
                   ],
@@ -101,6 +101,7 @@ class _ReadyOverlayState extends State<ReadyOverlay>
                 child: const Text(
                   'TAP TO FLY!',
                   style: TextStyle(
+                    fontFamily: 'Poppins',
                     fontSize: 22,
                     fontWeight: FontWeight.w900,
                     letterSpacing: 1.5,
@@ -112,17 +113,18 @@ class _ReadyOverlayState extends State<ReadyOverlay>
               Container(
                 padding: const EdgeInsets.symmetric(
                   horizontal: 16,
-                  vertical: 4,
+                  vertical: 5,
                 ),
                 decoration: BoxDecoration(
-                  color: Colors.black.withAlpha(140),
-                  borderRadius: BorderRadius.circular(12),
+                  color: Colors.black.withAlpha(150),
+                  borderRadius: BorderRadius.circular(14),
                 ),
                 child: const Text(
                   'Tap anywhere to flap upward',
                   style: TextStyle(
+                    fontFamily: 'Poppins',
                     fontSize: 13,
-                    fontWeight: FontWeight.bold,
+                    fontWeight: FontWeight.w800,
                     color: Colors.white,
                   ),
                 ),

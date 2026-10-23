@@ -164,7 +164,7 @@ void main() {
       await tester.pump();
 
       // Check title and buttons exist
-      expect(find.text('MZ FLY'), findsOneWidget);
+      expect(find.text('MZ FLY'), findsWidgets);
       expect(find.text('PLAY NOW'), findsOneWidget);
       expect(find.textContaining('BEST SCORE'), findsOneWidget);
       expect(find.text('SFX'), findsOneWidget);

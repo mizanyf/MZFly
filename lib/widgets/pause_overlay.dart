@@ -53,12 +53,20 @@ class _PauseOverlayState extends State<PauseOverlay> {
                   borderRadius: BorderRadius.circular(18),
                   border: Border.all(
                     color: const Color(0xFF0F172A),
-                    width: 2.8,
+                    width: 3.0,
                   ),
+                  boxShadow: const [
+                    BoxShadow(
+                      color: Color(0xFF0F172A),
+                      offset: Offset(0, 4),
+                      blurRadius: 0,
+                    ),
+                  ],
                 ),
                 child: const Text(
                   'PAUSED',
                   style: TextStyle(
+                    fontFamily: 'Poppins',
                     fontSize: 26,
                     fontWeight: FontWeight.w900,
                     letterSpacing: 2.0,

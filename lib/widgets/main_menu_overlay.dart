@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 import '../game/mz_fly_game.dart';
 import '../services/audio_service.dart';
 import '../services/storage_service.dart';
 import 'cartoon_button.dart';
 
-/// The Main Menu overlay showing the game logo, title, best score, play button, and audio toggles.
+/// The Main Menu overlay displaying the floating 3D MZ FLY title,
+/// best score badge, play button, and audio toggles.
 class MainMenuOverlay extends StatefulWidget {
   final MzFlyGame game;
 
@@ -29,10 +29,10 @@ class _MainMenuOverlayState extends State<MainMenuOverlay>
     super.initState();
     _bounceController = AnimationController(
       vsync: this,
-      duration: const Duration(milliseconds: 1400),
+      duration: const Duration(milliseconds: 1200),
     )..repeat(reverse: true);
 
-    _bounceAnimation = Tween<double>(begin: -8.0, end: 8.0).animate(
+    _bounceAnimation = Tween<double>(begin: -7.0, end: 7.0).animate(
       CurvedAnimation(parent: _bounceController, curve: Curves.easeInOut),
     );
 
@@ -49,18 +49,19 @@ class _MainMenuOverlayState extends State<MainMenuOverlay>
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      child: Stack(
-        children: [
-          // Content column
-          Center(
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 24.0),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  const SizedBox(height: 12),
+      child: Center(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 24.0),
+          child: Column(
+            children: [
+              // Top area kept clear for the floating animated cartoon bird
+              const Spacer(),
 
-                  // Animated Logo & Title Banner
+              // Bottom Section: MZ FLY Title -> Best Score -> Play Button -> SFX/BGM
+              Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  // 3D Cartoon MZ FLY Title (No background box)
                   AnimatedBuilder(
                     animation: _bounceAnimation,
                     builder: (context, child) {
@@ -69,191 +70,150 @@ class _MainMenuOverlayState extends State<MainMenuOverlay>
                         child: child,
                       );
                     },
-                    child: Column(
+                    child: Stack(
+                      alignment: Alignment.center,
                       children: [
-                        // User Logo
-                        Container(
-                          width: 120,
-                          height: 120,
-                          decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            border: Border.all(
-                              color: const Color(0xFF0F172A),
-                              width: 3.5,
-                            ),
-                            boxShadow: const [
-                              BoxShadow(
-                                color: Color(0xFF0F172A),
-                                offset: Offset(0, 6),
-                                blurRadius: 0,
-                              ),
-                            ],
-                          ),
-                          child: ClipOval(
-                            child: Image.asset(
-                              'assets/images/logo.png',
-                              fit: BoxFit.cover,
-                              errorBuilder: (context, error, stackTrace) {
-                                return Container(
-                                  color: const Color(0xFFFFCA28),
-                                  child: const Icon(
-                                    Icons.flight_takeoff_rounded,
-                                    size: 54,
-                                    color: Color(0xFFD84315),
-                                  ),
-                                );
-                              },
-                            ),
-                          ),
-                        ),
-                        const SizedBox(height: 12),
-
-                        // Title Banner
-                        Container(
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: 26,
-                            vertical: 8,
-                          ),
-                          decoration: BoxDecoration(
-                            color: const Color(0xFFFFCA28),
-                            borderRadius: BorderRadius.circular(24),
-                            border: Border.all(
-                              color: const Color(0xFF0F172A),
-                              width: 3.5,
-                            ),
-                            boxShadow: const [
-                              BoxShadow(
-                                color: Color(0xFFE65100),
-                                offset: Offset(0, 5),
-                                blurRadius: 0,
-                              ),
-                              BoxShadow(
-                                color: Color(0xFF0F172A),
-                                offset: Offset(0, 8),
-                                blurRadius: 0,
-                              ),
-                            ],
-                          ),
+                        // Bottom dark 3D drop shadow
+                        Transform.translate(
+                          offset: const Offset(0, 6.5),
                           child: Text(
                             'MZ FLY',
-                            style: GoogleFonts.poppins(
-                              fontSize: 34,
+                            style: TextStyle(
+                              fontFamily: 'Poppins',
+                              fontSize: 52,
                               fontWeight: FontWeight.w900,
-                              letterSpacing: 2.0,
-                              color: const Color(0xFFD84315),
-                              shadows: const [
-                                Shadow(
-                                  offset: Offset(2, 2),
-                                  color: Colors.white,
-                                  blurRadius: 0,
-                                ),
-                              ],
+                              letterSpacing: 4.0,
+                              foreground: Paint()
+                                ..style = PaintingStyle.stroke
+                                ..strokeWidth = 9.0
+                                ..strokeCap = StrokeCap.round
+                                ..strokeJoin = StrokeJoin.round
+                                ..color = const Color(0xFF0F172A),
                             ),
                           ),
                         ),
-                        const SizedBox(height: 8),
-                        Container(
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: 14,
-                            vertical: 4,
-                          ),
-                          decoration: BoxDecoration(
-                            color: Colors.white.withAlpha(225),
-                            borderRadius: BorderRadius.circular(16),
-                            border: Border.all(
-                              color: const Color(0xFF01579B),
-                              width: 1.8,
-                            ),
-                          ),
+                        // 3D warm orange depth bevel
+                        Transform.translate(
+                          offset: const Offset(0, 3.5),
                           child: Text(
-                            'One-Touch Cartoon Flying',
-                            style: GoogleFonts.poppins(
-                              fontSize: 13,
-                              fontWeight: FontWeight.w800,
-                              color: const Color(0xFF01579B),
+                            'MZ FLY',
+                            style: TextStyle(
+                              fontFamily: 'Poppins',
+                              fontSize: 52,
+                              fontWeight: FontWeight.w900,
+                              letterSpacing: 4.0,
+                              foreground: Paint()
+                                ..style = PaintingStyle.stroke
+                                ..strokeWidth = 8.0
+                                ..strokeCap = StrokeCap.round
+                                ..strokeJoin = StrokeJoin.round
+                                ..color = const Color(0xFFE65100),
                             ),
+                          ),
+                        ),
+                        // Outer dark border stroke
+                        Text(
+                          'MZ FLY',
+                          style: TextStyle(
+                            fontFamily: 'Poppins',
+                            fontSize: 52,
+                            fontWeight: FontWeight.w900,
+                            letterSpacing: 4.0,
+                            foreground: Paint()
+                              ..style = PaintingStyle.stroke
+                              ..strokeWidth = 8.0
+                              ..strokeCap = StrokeCap.round
+                              ..strokeJoin = StrokeJoin.round
+                              ..color = const Color(0xFF0F172A),
+                          ),
+                        ),
+                        // Vibrant golden yellow text face
+                        const Text(
+                          'MZ FLY',
+                          style: TextStyle(
+                            fontFamily: 'Poppins',
+                            fontSize: 52,
+                            fontWeight: FontWeight.w900,
+                            letterSpacing: 4.0,
+                            color: Color(0xFFFFD54F),
                           ),
                         ),
                       ],
                     ),
                   ),
 
-                  // Middle spacing (bird hovers here)
-                  const Spacer(),
+                  const SizedBox(height: 14),
 
-                  // Best Score Badge & Play Button
-                  Column(
-                    children: [
-                      // Best score pill
-                      ValueListenableBuilder<int>(
-                        valueListenable: widget.game.bestScoreNotifier,
-                        builder: (context, best, _) {
-                          return Container(
-                            margin: const EdgeInsets.only(bottom: 22),
-                            padding: const EdgeInsets.symmetric(
-                              horizontal: 22,
-                              vertical: 10,
+                  // Best score pill
+                  ValueListenableBuilder<int>(
+                    valueListenable: widget.game.bestScoreNotifier,
+                    builder: (context, best, _) {
+                      return Container(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 24,
+                          vertical: 9,
+                        ),
+                        decoration: BoxDecoration(
+                          color: const Color(0xFF1E293B),
+                          borderRadius: BorderRadius.circular(24),
+                          border: Border.all(
+                            color: const Color(0xFFFFD54F),
+                            width: 2.8,
+                          ),
+                          boxShadow: const [
+                            BoxShadow(
+                              color: Color(0xFF0F172A),
+                              offset: Offset(0, 4.5),
+                              blurRadius: 0,
                             ),
-                            decoration: BoxDecoration(
-                              color: const Color(0xFF1E293B),
-                              borderRadius: BorderRadius.circular(22),
-                              border: Border.all(
-                                color: const Color(0xFFFFD54F),
-                                width: 2.5,
+                          ],
+                        ),
+                        child: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            const Icon(
+                              Icons.emoji_events_rounded,
+                              color: Color(0xFFFFD54F),
+                              size: 24,
+                            ),
+                            const SizedBox(width: 8),
+                            Text(
+                              'BEST SCORE: $best',
+                              style: const TextStyle(
+                                fontFamily: 'Poppins',
+                                fontSize: 18,
+                                fontWeight: FontWeight.w900,
+                                letterSpacing: 1.4,
+                                color: Colors.white,
                               ),
-                              boxShadow: const [
-                                BoxShadow(
-                                  color: Colors.black26,
-                                  offset: Offset(0, 4),
-                                  blurRadius: 6,
-                                ),
-                              ],
                             ),
-                            child: Row(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                const Icon(
-                                  Icons.emoji_events_rounded,
-                                  color: Color(0xFFFFD54F),
-                                  size: 24,
-                                ),
-                                const SizedBox(width: 8),
-                                Text(
-                                  'BEST SCORE: $best',
-                                  style: GoogleFonts.poppins(
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.w900,
-                                    letterSpacing: 1.2,
-                                    color: Colors.white,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          );
-                        },
-                      ),
+                          ],
+                        ),
+                      );
+                    },
+                  ),
 
-                      // PLAY BUTTON
-                      CartoonButton(
-                        text: 'PLAY NOW',
-                        icon: Icons.play_arrow_rounded,
-                        primaryColor: const Color(0xFF4CAF50),
-                        shadowColor: const Color(0xFF2E7D32),
-                        fontSize: 22,
-                        height: 58,
-                        minWidth: 220,
-                        onPressed: () {
-                          widget.game.prepareReady();
-                        },
-                      ),
-                    ],
+                  const SizedBox(height: 16),
+
+                  // PLAY BUTTON
+                  CartoonButton(
+                    text: 'PLAY NOW',
+                    icon: Icons.play_arrow_rounded,
+                    primaryColor: const Color(0xFF4CAF50),
+                    shadowColor: const Color(0xFF2E7D32),
+                    fontSize: 22,
+                    height: 58,
+                    minWidth: 220,
+                    onPressed: () {
+                      widget.game.prepareReady();
+                    },
                   ),
 
                   const SizedBox(height: 18),
 
-                  // Bottom Controls (Sound, Music)
+                  // Audio Toggles (SFX, BGM)
                   Padding(
-                    padding: const EdgeInsets.only(bottom: 16.0),
+                    padding: const EdgeInsets.only(bottom: 18.0),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
@@ -269,7 +229,7 @@ class _MainMenuOverlayState extends State<MainMenuOverlay>
                             setState(() {});
                           },
                         ),
-                        const SizedBox(width: 22),
+                        const SizedBox(width: 24),
 
                         // BGM Toggle
                         _CircleIconButton(
@@ -288,9 +248,9 @@ class _MainMenuOverlayState extends State<MainMenuOverlay>
                   ),
                 ],
               ),
-            ),
+            ],
           ),
-        ],
+        ),
       ),
     );
   }
@@ -317,30 +277,34 @@ class _CircleIconButton extends StatelessWidget {
         GestureDetector(
           onTap: onPressed,
           child: Container(
-            width: 48,
-            height: 48,
+            width: 50,
+            height: 50,
             decoration: BoxDecoration(
               shape: BoxShape.circle,
-              color: isActive ? const Color(0xFF42A5F5) : const Color(0xFF94A3B8),
-              border: Border.all(color: const Color(0xFF0F172A), width: 2.5),
+              color: isActive
+                  ? const Color(0xFF42A5F5)
+                  : const Color(0xFF94A3B8),
+              border: Border.all(color: const Color(0xFF0F172A), width: 2.8),
               boxShadow: const [
                 BoxShadow(
                   color: Color(0xFF0F172A),
-                  offset: Offset(0, 3),
+                  offset: Offset(0, 3.5),
                   blurRadius: 0,
                 ),
               ],
             ),
-            child: Icon(icon, color: Colors.white, size: 24),
+            child: Icon(icon, color: Colors.white, size: 26),
           ),
         ),
-        const SizedBox(height: 4),
+        const SizedBox(height: 5),
         Text(
           label,
-          style: GoogleFonts.poppins(
-            fontSize: 12,
-            fontWeight: FontWeight.w800,
-            color: const Color(0xFF0F172A),
+          style: const TextStyle(
+            fontFamily: 'Poppins',
+            fontSize: 13,
+            fontWeight: FontWeight.w900,
+            letterSpacing: 0.8,
+            color: Color(0xFF0F172A),
           ),
         ),
       ],

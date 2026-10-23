@@ -77,6 +77,7 @@ class _GameOverOverlayState extends State<GameOverOverlay>
           Text(
             '$tier MEDAL',
             style: TextStyle(
+              fontFamily: 'Poppins',
               fontSize: 12,
               fontWeight: FontWeight.w900,
               letterSpacing: 1.0,
@@ -152,6 +153,7 @@ class _GameOverOverlayState extends State<GameOverOverlay>
                   child: const Text(
                     'GAME OVER',
                     style: TextStyle(
+                      fontFamily: 'Poppins',
                       fontSize: 26,
                       fontWeight: FontWeight.w900,
                       letterSpacing: 2.0,
@@ -191,6 +193,7 @@ class _GameOverOverlayState extends State<GameOverOverlay>
                           const Text(
                             'SCORE',
                             style: TextStyle(
+                              fontFamily: 'Poppins',
                               fontSize: 16,
                               fontWeight: FontWeight.w900,
                               color: Color(0xFF64748B),
@@ -199,7 +202,8 @@ class _GameOverOverlayState extends State<GameOverOverlay>
                           Text(
                             '$score',
                             style: const TextStyle(
-                              fontSize: 32,
+                              fontFamily: 'Poppins',
+                              fontSize: 34,
                               fontWeight: FontWeight.w900,
                               color: Color(0xFF0F172A),
                             ),
@@ -214,6 +218,7 @@ class _GameOverOverlayState extends State<GameOverOverlay>
                           const Text(
                             'BEST SCORE',
                             style: TextStyle(
+                              fontFamily: 'Poppins',
                               fontSize: 16,
                               fontWeight: FontWeight.w900,
                               color: Color(0xFF64748B),
@@ -222,6 +227,7 @@ class _GameOverOverlayState extends State<GameOverOverlay>
                           Text(
                             '$bestScore',
                             style: const TextStyle(
+                              fontFamily: 'Poppins',
                               fontSize: 26,
                               fontWeight: FontWeight.w900,
                               color: Color(0xFFD97706),
@@ -261,6 +267,7 @@ class _GameOverOverlayState extends State<GameOverOverlay>
                               Text(
                                 'NEW BEST RECORD!',
                                 style: TextStyle(
+                                  fontFamily: 'Poppins',
                                   fontSize: 13,
                                   fontWeight: FontWeight.w900,
                                   letterSpacing: 1.0,

@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-import 'package:google_fonts/google_fonts.dart';
-
 import 'screens/game_screen.dart';
 import 'services/audio_service.dart';
 import 'services/storage_service.dart';
@@ -49,7 +47,6 @@ class MzFlyApp extends StatelessWidget {
           brightness: Brightness.light,
         ),
         fontFamily: 'Poppins',
-        textTheme: GoogleFonts.poppinsTextTheme(),
       ),
       home: const GameScreen(),
     );

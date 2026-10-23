@@ -171,7 +171,8 @@ class ScorePopupText extends PositionComponent {
       text: TextSpan(
         text: '+1',
         style: TextStyle(
-          fontSize: 24,
+          fontFamily: 'Poppins',
+          fontSize: 26,
           fontWeight: FontWeight.w900,
           color: const Color(0xFFFFEB3B).withAlpha(alpha),
           shadows: [

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 import '../services/audio_service.dart';
 
@@ -100,14 +99,20 @@ class _CartoonButtonState extends State<CartoonButton> {
             if (widget.text != null)
               Text(
                 widget.text!,
-                style: GoogleFonts.poppins(
+                style: TextStyle(
+                  fontFamily: 'Poppins',
                   fontSize: widget.fontSize,
                   fontWeight: FontWeight.w900,
-                  letterSpacing: 1.2,
+                  letterSpacing: 1.5,
                   color: widget.textColor,
                   shadows: const [
                     Shadow(
-                      offset: Offset(1.5, 1.5),
+                      offset: Offset(0, 2),
+                      color: Color(0xFF0F172A),
+                      blurRadius: 0,
+                    ),
+                    Shadow(
+                      offset: Offset(1.5, 2.5),
                       color: Colors.black45,
                       blurRadius: 2,
                     ),
